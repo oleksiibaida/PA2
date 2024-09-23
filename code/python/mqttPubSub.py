@@ -3,9 +3,8 @@ import paho.mqtt.client as mqtt
 host = "192.168.0.206"
 port = 1883
 
-topic_alarm = "alarm"
-topic_pin = "pin"
-topics = {topic_alarm, topic_pin}
+
+topics = {"alarm", "pin"}
 
 def on_connect(client, userdata, flags, reason_code, properties):
     print(f"Connected with code {reason_code}")
@@ -16,9 +15,9 @@ def on_connect(client, userdata, flags, reason_code, properties):
 
 
 def on_message(client, userdata, msg):
-    if(msg.topic == "arduino/alarm"):
+    if(msg.topic == "alarm"):
         print("!!!ALARM: " + msg.payload.decode())
-    elif(msg.topic == "arduino/pin"):
+    elif(msg.topic == "pin"):
         print("PIN: " + msg.payload.decode())
     else:
         print("Recieved TOPIC: " + str(msg.topic) + " MES: " + msg.payload.decode())

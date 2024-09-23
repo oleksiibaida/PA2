@@ -1,9 +1,9 @@
 #include <ESP8266WiFi.h> // WLAN-Verbindung
-#include <Arduino.h>
+// #include <Arduino.h>
 // #include <MQTTClient.h>
-#include <Wire.h>         // UART-Verbindung mit Arduino
+// #include <Wire.h>         // UART-Verbindung mit Arduino
 #include <PubSubClient.h> // MQTT-Verbindung
-#include <ArduinoJson.h>  // Erstellung JSON-Objekt
+// #include <ArduinoJson.h>  // Erstellung JSON-Objekt
 
 #define PUBLISH_TOPIC "send"
 #define SUBSCRIBE_TOPIC "esp/command"
@@ -14,37 +14,84 @@ const char *CLIENT_ID = "ESP8266";
 // const char MQTT_USER = '';
 // const char MQTT_PAS = '';
 
-const char WIFI_SSID[] = "UPC91DEE22";
-const char WIFI_PASSWORD[] = "SilverBestCat6";
-const char MQTT_BROKER_ADRRESS[] = "192.168.0.206";
+// const char WIFI_SSID[] = "UPC91DEE22";
+// const char WIFI_PASSWORD[] = "SilverBestCat6";
+
+// Hotspot ist Raspberry PI
+const char WIFI_SSID[] = "RaspEsp";
+const char WIFI_PASSWORD[] = "mqtt1234";
+const char MQTT_BROKER_ADRRESS[] = "192.168.1.10"; // IP von Raspbeery
 const int MQTT_PORT = 1883;
 const int buss_serial = 50; // Buffer Groesse fuer UAR-Verbindung
 
 WiFiClient wifiClient;
 PubSubClient mqttClient(wifiClient);
 
+void connect_wifi();                                            // Erstellung der WLAN-Verbindung
+void connect_mqtt();                                            // Erstellung der Verbindung mit MQTT-Server
+void callback(char *topic, byte *payload, unsigned int length); // Antwort auf die erhaltene MQTT-Nachricht
+void readSerialData();                                          // Liest Data aus Serial ab und schickt diese als MQTT-Nachricht
+
+void setup()
+{
+  Serial.begin(9600);
+  connect_wifi();
+  mqttClient.setServer(MQTT_BROKER_ADRRESS, MQTT_PORT);
+  mqttClient.setCallback(callback);
+  connect_mqtt();
+}
+
+void loop()
+{
+  // Ausfall der WLAN-Verbindung
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    connect_wifi();
+  }
+
+  // Ausfall der MQTT-Verbindung
+  if (!mqttClient.connected())
+  {
+    connect_mqtt();
+  }
+  // delay(500);
+  readSerialData();
+  mqttClient.loop();
+}
+
+/*
+Serial.print("\nConnecting ESP to MQTT Broker with IP: ");
+  Serial.print(MQTT_BROKER_ADRRESS);
+
+Serial.print("\nConnected to MQTT Broker. ");
+
+      Serial.print("\nSubscribed to topic: ");
+      Serial.print(SUBSCRIBE_TOPIC);
+
+            int16_t retry = 1000;
+      Serial.print("\nMQTT Failed. State = ");
+      Serial.print(mqttClient.state());
+      Serial.print(" --- Retry in ");
+      Serial.print(retry / 1000);
+      Serial.print(" seconds");
+*/
+
 void connect_mqtt()
 {
   Serial.print("\nConnecting ESP to MQTT Broker with IP: ");
   Serial.print(MQTT_BROKER_ADRRESS);
-  while (!mqttClient.connected())
+  while (!mqttClient.connected() & WiFi.status() == WL_CONNECTED)
+
   {
     if (mqttClient.connect(CLIENT_ID))
     {
-      Serial.print("\nConnected to MQTT Broker. ");
       mqttClient.subscribe(SUBSCRIBE_TOPIC);
       Serial.print("\nSubscribed to topic: ");
       Serial.print(SUBSCRIBE_TOPIC);
     }
     else
     {
-      int16_t retry = 1000;
-      Serial.print("\nFailed. State = ");
-      Serial.print(mqttClient.state());
-      Serial.print(" --- Retry in ");
-      Serial.print(retry / 1000);
-      Serial.print(" seconds");
-      delay(retry);
+      delay(1000);
     }
   }
 }
@@ -60,14 +107,10 @@ void callback(char *topic, byte *payload, unsigned int length)
     Serial.print((char)payload[i]);
     callbackMessage += (char)payload[i];
   }
-
   mqttClient.publish(PUBLISH_TOPIC, callbackMessage.c_str());
 }
 
-/* Verbindung mit WLAN
-@param WIFI_SSID
-@param WIFI_PASSWORD
- */
+// Verbindung mit WLAN
 void connect_wifi()
 {
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
@@ -76,7 +119,7 @@ void connect_wifi()
 
   while (WiFi.status() != WL_CONNECTED)
   {
-    delay(200);
+    delay(500);
     Serial.print(".");
   }
 
@@ -84,21 +127,28 @@ void connect_wifi()
   Serial.print(WiFi.localIP());
 }
 
-// Liest Data aus Serial ab und schickt diese als MQTT-Nachricht
 // Format topic:message
 void readSerialData()
 {
   if (Serial.available() > 0)
   {
     String readString = "";
-    static char readSerialChar[buss_serial] = "";
     // Lese Daten aus Serial als String ab
     readString = Serial.readStringUntil('\n');
-
-    // String in char-Filed konvertieren
-    for (unsigned int i = 0; i < sizeof(readString); i++)
+    Serial.print("\nReceived SERIAL: ");
+    Serial.print(readString);
+    if (sizeof(readString) > buss_serial)
     {
-      readSerialChar[i] = readString[i];
+      Serial.print("Message too long!");
+      return;
+    }
+    Serial.print("\nConvert String to char: ");
+    // String in char - Feld konvertieren
+    char readSerialChar[readString.length() + 1];
+    readString.toCharArray(readSerialChar, readString.length() + 1);
+    for (unsigned int i = 0; i < sizeof readSerialChar; i++)
+    {
+      Serial.print(readSerialChar[i]);
     }
 
     // Suche Position von ':'
@@ -110,33 +160,14 @@ void readSerialData()
       strncpy(topic, readSerialChar, topic_length);
       topic[topic_length] = '\0';
       char *message = delim_pos + 1;
-      Serial.printf("Message %s", message);
+      Serial.printf("\nMessage %s", message);
       // MQTT-Nachricht senden
       mqttClient.publish(topic, message);
     }
-    else
+    else // kein : gefunden
     {
       Serial.print("FALSCHES FORMAT");
+      return;
     }
   }
-}
-
-void setup()
-{
-  Serial.begin(9600);
-  connect_wifi();
-  mqttClient.setServer(MQTT_BROKER_ADRRESS, MQTT_PORT);
-  mqttClient.setCallback(callback);
-  connect_mqtt();
-}
-
-void loop()
-{
-  if (!mqttClient.connected())
-  {
-    connect_mqtt();
-  }
-  delay(500);
-  readSerialData();
-  mqttClient.loop();
 }

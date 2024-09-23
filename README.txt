@@ -1,1 +1,1 @@
-README
+sudo apt-get install -y hostapd dnsmasq mosquitto mosquitto-clients
