@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.12) (preloaded format=pdflatex 2024.1.25)  22 SEP 2024 21:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.12) (preloaded format=pdflatex 2024.1.25)  11 OCT 2024 15:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -285,55 +285,76 @@ Package: fancyvrb 2024/01/20 4.5c verbatim text (tvz,hv)
 \c@FancyVerbLine=\count303
 \FV@StepNumber=\count304
 \FV@OutFile=\write3
-)
-Package hyperref Info: Option `colorlinks' set `true' on input line 18.
+) (E:\Soft\MikTex\tex/latex/listings\listings.sty
+\lst@mode=\count305
+\lst@gtempboxa=\box56
+\lst@token=\toks25
+\lst@length=\count306
+\lst@currlwidth=\dimen178
+\lst@column=\count307
+\lst@pos=\count308
+\lst@lostspace=\dimen179
+\lst@width=\dimen180
+\lst@newlines=\count309
+\lst@lineno=\count310
+\lst@maxwidth=\dimen181
+ (E:\Soft\MikTex\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+\c@lstnumber=\count311
+\lst@skipnumbers=\count312
+\lst@framebox=\box57
+) (E:\Soft\MikTex\tex/latex/listings\listings.cfg
+File: listings.cfg 2023/02/27 1.9 listings configuration
+))
+Package: listings 2023/02/27 1.9 (Carsten Heinz)
+Package hyperref Info: Option `colorlinks' set `true' on input line 19.
  (E:\Soft\MikTex\tex/latex/lipsum\lipsum.sty (E:\Soft\MikTex\tex/latex/l3packages/l3keys2e\l3keys2e.sty (E:\Soft\MikTex\tex/latex/l3kernel\expl3.sty
 Package: expl3 2024-01-04 L3 programming layer (loader) 
  (E:\Soft\MikTex\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count305
-\l__pdf_internal_box=\box56
+\l__color_backend_stack_int=\count313
+\l__pdf_internal_box=\box58
 ))
 Package: l3keys2e 2023-10-10 LaTeX2e option processing using LaTeX3 keys
 )
 Package: lipsum 2021-09-20 v2.7 150 paragraphs of Lorem Ipsum dummy text
-\g__lipsum_par_int=\count306
-\l__lipsum_a_int=\count307
-\l__lipsum_b_int=\count308
+\g__lipsum_par_int=\count314
+\l__lipsum_a_int=\count315
+\l__lipsum_b_int=\count316
  (E:\Soft\MikTex\tex/latex/lipsum\lipsum.ltd.tex)) (pa2_bericht.aux (titelseite.aux))
 \openout1 = `pa2_bericht.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
  (E:\Soft\MikTex\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count309
-\scratchdimen=\dimen178
-\scratchbox=\box57
-\nofMPsegments=\count310
-\nofMParguments=\count311
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count312
-\MPscratchDim=\dimen179
-\MPnumerator=\count313
-\makeMPintoPDFobject=\count314
-\everyMPtoPDFconversion=\toks26
+\scratchcounter=\count317
+\scratchdimen=\dimen182
+\scratchbox=\box59
+\nofMPsegments=\count318
+\nofMParguments=\count319
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count320
+\MPscratchDim=\dimen183
+\MPnumerator=\count321
+\makeMPintoPDFobject=\count322
+\everyMPtoPDFconversion=\toks27
 ) (E:\Soft\MikTex\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -376,6 +397,7 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 (E:\Soft\MikTex\tex/latex/graphics\color.sty
 Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
@@ -384,15 +406,16 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 149.
  (E:\Soft\MikTex\tex/latex/graphics\mathcolor.ltx))
-Package hyperref Info: Link coloring ON on input line 34.
+Package hyperref Info: Link coloring ON on input line 35.
  (pa2_bericht.out) (pa2_bericht.out)
 \@outlinefile=\write4
 \openout4 = `pa2_bericht.out'.
 
+\c@lstlisting=\count323
 \openout2 = `titelseite.aux'.
 
  (titelseite.tex
-<./Bilder/FHDO.jpg, id=71, 316.18124pt x 210.7875pt>
+<./Bilder/FHDO.jpg, id=103, 316.18124pt x 210.7875pt>
 File: ./Bilder/FHDO.jpg Graphic file (type jpg)
 <use ./Bilder/FHDO.jpg>
 Package pdftex.def Info: ./Bilder/FHDO.jpg  used on input line 2.
@@ -402,11 +425,11 @@ Package pdftex.def Info: ./Bilder/FHDO.jpg  used on input line 2.
 
 {C:/Users/baida/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./Bilder/FHDO.jpg>]) (pa2_bericht.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 4.
+(Font)              <12> on input line 3.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 4.
+(Font)              <8> on input line 3.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 4.
+(Font)              <6> on input line 3.
 )
 \tf@toc=\write5
 \openout5 = `pa2_bericht.toc'.
@@ -415,105 +438,92 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.39 
+l.40 
       [1
 
 
 ]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 45.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 45.
+<./Bilder/gesamtplan.jpg, id=140, 1617.04124pt x 972.63374pt>
+File: ./Bilder/gesamtplan.jpg Graphic file (type jpg)
+<use ./Bilder/gesamtplan.jpg>
+Package pdftex.def Info: ./Bilder/gesamtplan.jpg  used on input line 47.
+(pdftex.def)             Requested size: 483.69684pt x 290.93158pt.
 
-Overfull \hbox (20.13406pt too wide) in paragraph at lines 47--48
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[2 <./Bilder/gesamtplan.jpg>]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 84.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 84.
+ [3]
+Overfull \hbox (20.13406pt too wide) in paragraph at lines 86--87
 []\OT1/cmr/m/n/12 Bei der Wahl des Pro-to-kolls soll-ten die Ent-wick-ler die fol-gen-den Schl[]usselpunkte ber[]ucksichtigen: 
  []
 
-[2] [3]
-Overfull \hbox (2.15419pt too wide) in paragraph at lines 112--113
+[4] [5]
+Overfull \hbox (6.75224pt too wide) in paragraph at lines 112--113
+[]\OT1/cmr/m/n/12 Was Te-le-gram be-son-ders aus-zeich-net und bei Ent-wick-lern be-liebt macht, ist die Un-terst[]utzung
+ []
+
+
+Overfull \hbox (7.03142pt too wide) in paragraph at lines 118--119
+[]\OT1/cmr/m/n/12 Ein zen-tra-les Kon-zept der Bi-blio-thek ist der Com-mandHand-ler. Mit Hil-fe des Com-mandHand-
+ []
+
+[6] [7]
+Overfull \hbox (2.15419pt too wide) in paragraph at lines 174--175
 []\OT1/cmr/bx/n/12 ignore[]broadcast[]ssid \OT1/cmr/m/n/12 --- Stan-dar-de-in-stel-lung. Igno-riert An-fra-gen, die kein vollst[]andiges
  []
 
-[4] [5]
-Overfull \hbox (10.92583pt too wide) in paragraph at lines 167--168
+[8] [9]
+Overfull \hbox (10.92583pt too wide) in paragraph at lines 231--232
 []\OT1/cmr/m/n/12 Entsprechend den oben be-schrie-be-nen Ein-stel-lun-gen wer-den die IP-Adressen von 192.168.1.100
  []
 
-[6]
-Overfull \hbox (8.56752pt too wide) in paragraph at lines 210--211
+[10] [11] [12] [13]
+Overfull \hbox (8.56752pt too wide) in paragraph at lines 381--382
 \OT1/cmr/m/n/12 wer-den. Im Rah-men mei-nes Pro-jekts er-folgt die Ver-bin-dung []uber ei-ne se-ri-el-le UART-Schnittstelle. 
  []
 
-<./Bilder/readSerial2.png, id=142, 400.49625pt x 351.714pt>
-File: ./Bilder/readSerial2.png Graphic file (type png)
-<use ./Bilder/readSerial2.png>
-Package pdftex.def Info: ./Bilder/readSerial2.png  used on input line 216.
-(pdftex.def)             Requested size: 217.6621pt x 191.1517pt.
-<./Bilder/readSerial1.png, id=144, 326.4195pt x 284.86424pt>
-File: ./Bilder/readSerial1.png Graphic file (type png)
-<use ./Bilder/readSerial1.png>
-Package pdftex.def Info: ./Bilder/readSerial1.png  used on input line 221.
-(pdftex.def)             Requested size: 217.6621pt x 189.95828pt.
 
-Overfull \hbox (12.36609pt too wide) in paragraph at lines 212--226
+Overfull \hbox (12.36609pt too wide) in paragraph at lines 383--384
 \OT1/cmr/m/n/12 ent-spre-chen-de Ber[]ucksichtigung der je-wei-li-gen For-ma-tie-rung er-for-der-lich. Der Ar-dui-no []ubermittelt
  []
 
+[14]
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+LaTeX Warning: Reference `abb:espwifi' on page 15 undefined on input line 424.
 
-[7]
-<./Bilder/connect_wifi.png, id=153, 358.941pt x 233.673pt>
-File: ./Bilder/connect_wifi.png Graphic file (type png)
-<use ./Bilder/connect_wifi.png>
-Package pdftex.def Info: ./Bilder/connect_wifi.png  used on input line 233.
-(pdftex.def)             Requested size: 358.94011pt x 233.67242pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<./Bilder/connect_mqtt.png, id=155, 267.399pt x 216.20775pt>
-File: ./Bilder/connect_mqtt.png Graphic file (type png)
-<use ./Bilder/connect_mqtt.png>
-Package pdftex.def Info: ./Bilder/connect_mqtt.png  used on input line 243.
-(pdftex.def)             Requested size: 267.39835pt x 216.20721pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[8 <./Bilder/readSerial2.png> <./Bilder/readSerial1.png>]
-<./Bilder/callback.png, id=166, 365.56575pt x 193.32225pt>
-File: ./Bilder/callback.png Graphic file (type png)
-<use ./Bilder/callback.png>
-Package pdftex.def Info: ./Bilder/callback.png  used on input line 253.
-(pdftex.def)             Requested size: 365.56485pt x 193.32178pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[9 <./Bilder/connect_wifi.png> <./Bilder/connect_mqtt.png>] (pa2_bericht.lof)
+[15] [16] (pa2_bericht.lof)
 \tf@lof=\write6
 \openout6 = `pa2_bericht.lof'.
 
- [10 <./Bilder/callback.png>] (pa2_bericht.aux (titelseite.aux))
+ [17] (pa2_bericht.aux (titelseite.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `pa2_bericht.out' has not changed.
-(rerunfilecheck)             Checksum: BE2E43FABE1E1CE06B82D76AEDAB916E;2204.
+(rerunfilecheck)             Checksum: D9D75816E9560C5DE5A0B92CD99FF130;3564.
  ) 
 Here is how much of TeX's memory you used:
- 13168 strings out of 474486
- 215882 string characters out of 5757825
- 1937542 words of memory out of 5000000
- 35236 multiletter control sequences out of 15000+600000
+ 14498 strings out of 474486
+ 234528 string characters out of 5757825
+ 1938542 words of memory out of 5000000
+ 36544 multiletter control sequences out of 15000+600000
  563729 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,9n,93p,1113b,713s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,12n,93p,1145b,711s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\baida\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmbx12.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmr10.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmr12.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmr7.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmr8.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on pa2_bericht.pdf (11 pages, 248168 bytes).
+Output written on pa2_bericht.pdf (18 pages, 307055 bytes).
 PDF statistics:
- 230 PDF objects out of 1000 (max. 8388607)
- 43 named destinations out of 1000 (max. 500000)
- 167 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 282 PDF objects out of 1000 (max. 8388607)
+ 56 named destinations out of 1000 (max. 500000)
+ 211 words of extra memory for PDF output out of 10000 (max. 10000000)
 

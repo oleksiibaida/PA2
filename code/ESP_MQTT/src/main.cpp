@@ -11,20 +11,15 @@
 unsigned long lastPublishtime = 0;
 
 const char *CLIENT_ID = "ESP8266";
-// const char MQTT_USER = '';
-// const char MQTT_PAS = '';
-
-// const char WIFI_SSID[] = "UPC91DEE22";
-// const char WIFI_PASSWORD[] = "SilverBestCat6";
 
 // Hotspot ist Raspberry PI
 const char WIFI_SSID[] = "RaspEsp";
 const char WIFI_PASSWORD[] = "mqtt1234";
-const char MQTT_BROKER_ADRRESS[] = "192.168.1.10"; // IP von Raspbeery
+const char MQTT_BROKER_ADRRESS[] = "192.168.1.10"; // IP von Raspberry
 const int MQTT_PORT = 1883;
 const int buss_serial = 50; // Buffer Groesse fuer UAR-Verbindung
 
-WiFiClient wifiClient;
+WiFiClientSecure wifiClient;
 PubSubClient mqttClient(wifiClient);
 
 void connect_wifi();                                            // Erstellung der WLAN-Verbindung
@@ -34,10 +29,9 @@ void readSerialData();                                          // Liest Data au
 
 void setup()
 {
+
   Serial.begin(9600);
   connect_wifi();
-  mqttClient.setServer(MQTT_BROKER_ADRRESS, MQTT_PORT);
-  mqttClient.setCallback(callback);
   connect_mqtt();
 }
 
@@ -78,22 +72,35 @@ Serial.print("\nConnected to MQTT Broker. ");
 
 void connect_mqtt()
 {
-  Serial.print("\nConnecting ESP to MQTT Broker with IP: ");
+  Serial.print("\nESP---Verbinden mit dem Broker: ");
   Serial.print(MQTT_BROKER_ADRRESS);
-  while (!mqttClient.connected() & WiFi.status() == WL_CONNECTED)
 
+  mqttClient.setServer(MQTT_BROKER_ADRRESS, MQTT_PORT);
+  mqttClient.setCallback(callback);
+  while (!mqttClient.connected())
   {
-    if (mqttClient.connect(CLIENT_ID))
-    {
-      mqttClient.subscribe(SUBSCRIBE_TOPIC);
-      Serial.print("\nSubscribed to topic: ");
-      Serial.print(SUBSCRIBE_TOPIC);
-    }
-    else
-    {
-      delay(1000);
-    }
+    mqttClient.connect(CLIENT_ID);
+    Serial.print("\nState: ");
+    Serial.print(mqttClient.state());
+    delay(500);
   }
+  mqttClient.subscribe(SUBSCRIBE_TOPIC);
+  Serial.print("\nESP---Topic abonniert: ");
+  Serial.print(SUBSCRIBE_TOPIC);
+  // while (!mqttClient.connected() && (WiFi.status() == WL_CONNECTED))
+  // {
+  //   if (mqttClient.connect(CLIENT_ID))
+  //   {
+  //     mqttClient.subscribe(SUBSCRIBE_TOPIC);
+  //     Serial.print("\nESP---Topic abonniert: ");
+  //     Serial.print(SUBSCRIBE_TOPIC);
+  //   }
+  //   else
+  //   {
+  //     Serial.print("\nMQTT_Broker not connected. State: ");
+  //     Serial.print(mqttClient.state());
+  //   }
+  // }
 }
 
 void callback(char *topic, byte *payload, unsigned int length)
@@ -122,8 +129,7 @@ void connect_wifi()
     delay(500);
     Serial.print(".");
   }
-
-  Serial.print("\nESP connected to WIFI with IP Address: ");
+  Serial.print("\nConnected to Raspi with IP: ");
   Serial.print(WiFi.localIP());
 }
 
