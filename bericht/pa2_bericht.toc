@@ -16,11 +16,12 @@
 \contentsline {subsection}{\numberline {2.1}Einrichtung als Access Point}{7}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Einrichtung des DNS- und DHCP-Servers}{9}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}MQTT-Broker}{10}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Telegram Bot und Paho-Client}{11}{subsection.2.4}%
-\contentsline {subsubsection}{\numberline {2.4.1}Paho-MQTT}{11}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.3.1}MQTT-Flow}{11}{subsubsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.4}Telegram Bot und Paho-Client}{12}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Paho-MQTT}{12}{subsubsection.2.4.1}%
 \contentsline {subsubsection}{\numberline {2.4.2}Telegram-Bot}{13}{subsubsection.2.4.2}%
 \contentsline {section}{\numberline {3}ESP8266}{14}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Arduino-ESP8266}{14}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}ESP8266-Raspberry Pi}{15}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Verbindung mit WLAN}{15}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.1}Verbindung mit WLAN}{16}{subsubsection.3.2.1}%
 \contentsline {subsubsection}{\numberline {3.2.2}Verbindung mit dem MQTT-Broker}{16}{subsubsection.3.2.2}%

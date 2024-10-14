@@ -12,6 +12,14 @@
 \usepackage{verbatim}
 \usepackage{fancyvrb}
 \usepackage{listings}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{array} % Für die Spaltenbreitenanpassung
+\usepackage{booktabs} % Für schönere Tabellen
+\usepackage{geometry}
+\usepackage{arydshln}
+
+\geometry{a4paper, margin=2cm}
 \hypersetup{
   colorlinks = true,
   linkcolor = black,
@@ -27,6 +35,61 @@
  }
 %  \titleformat{\section}[display]
 %    {\normalfont\bfseries}{}{0pt}{\huge}
+
+\definecolor{backcolor}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{stylelight}{
+    backgroundcolor=\color{backcolor},   
+    commentstyle=\color{green},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{black},
+    stringstyle=\color{black},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+
+\definecolor{pycharm-keyword-light}{HTML}{0000FF}   % Keywords - blue
+\definecolor{pycharm-string-light}{HTML}{008000}    % Strings - green
+\definecolor{pycharm-comment-light}{HTML}{808080}   % Comments - gray
+\definecolor{pycharm-builtins-light}{HTML}{0000AA}  % Constants - blue
+\definecolor{pycharm-function-light}{HTML}{0070C0}  % Functions - bright cyan/blue
+\definecolor{pycharm-background-light}{HTML}{FFFFFF} % Background - white
+\definecolor{pycharm-text-light}{HTML}{000000}      % Text - black
+
+% Define a custom style for Python in light theme
+\lstdefinestyle{pycharm-light}{
+  backgroundcolor=\color{pycharm-background-light},  % Set background color (white)
+  basicstyle=\ttfamily\color{pycharm-text-light},    % Set default text color (black)
+  keywordstyle=\color{pycharm-keyword-light}\bfseries, % Keywords in bold blue
+  commentstyle=\color{pycharm-comment-light}\itshape,  % Italic gray for comments
+  stringstyle=\color{pycharm-string-light},           % Green for strings
+  identifierstyle=\color{pycharm-function-light},     % Bright cyan for functions
+  showstringspaces=false,                             % Don't display spaces in strings
+  numberstyle=\tiny\color{pycharm-comment-light},     % Line number style (gray)
+  numbersep=10pt,                                     % Distance between line numbers and code
+  frame=single,                                       % Frame around code block
+  rulecolor=\color{pycharm-comment-light},            % Color of frame (gray)
+  tabsize=4,                                          % Tab size
+  breaklines=true,                                    % Line breaking for long lines
+  literate={True}{{\color{pycharm-builtins-light}True}}1
+           {False}{{\color{pycharm-builtins-light}False}}1
+           {None}{{\color{pycharm-builtins-light}None}}1, % Blue for constants
+}
+
+
+
+\lstset{style=pycharm-light}
+
   
 \usepackage{lipsum}  
 \graphicspath{ {./Bilder/} }
@@ -275,7 +338,25 @@ _____________________________________________________________________________
   mosquitto_pub -h localhost -t <DEIN_TOPIC> -m "MEINE 1. MQTT-NACHRICHT"
 \end{Verbatim}
 \par Nach dem Parameter -t (Topic) keine Klammern setzen. Nach dem Parameter -m (Message) den Text der Nachricht in Klammern setzen.
+\subsubsection{MQTT-Flow}
+\par In der Tabelle sind die Topic mit Nachrichten gelistet:
+
 \end{enumerate}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{5cm}|>{\centering\arraybackslash}m{5cm}|}
+  \hline
+  \textbf{Topic} & \textbf{Nachricht} & \textbf{Definition} \\ \hline
+  \multirow{4}{*}{alarm}  & gas        &  Gassensor hat erhöhte Konzentration von Gas erkannt\\ 
+                          & feuer      &  Feuersensor hat Feuer erkannt\\  \hdashline 
+                          & pir        &  Bewegungssensor hat eine Fremdbewegung erkannt\\  \cline{2-3} 
+                          & pin        &  Die PIN wurde falsch eingegeben\\ \hline\cline{2-3}
+  \multirow{3}{*}{status} & pinchanged &  Die PIN wurde geändert \\ 
+                          & gaskon     & Gibt die Gaskonzentration AUS \\ \hline\cline{2-3} 
+  \end{tabular}
+  
+  \caption{Alarm topics and corresponding messages.}
+  \end{table}
 \subsection{Telegram Bot und Paho-Client}
 \par Bisher kann der Raspberry Pi einen WLAN-Access-Point zur Verfügung stellen und MQTT-Nachrichten empfangen. Es fehlt noch eine Schnittstelle zum Endbenutzer, die ebenfalls auf dem Raspberry Pi implementiert wird. Ich habe mich für ein Telegram-Bot entschieden. Dazu muss ein Verwaltungsmechanismus für die MQTT-Nachrichten entwickelt werden. Für diese Zwecke verwende iche ein Python-Bibliothek \texttt{"paho-mqtt"}.
 \par Die Struktur ist wie folgendes aufgebaut(SPÄTER WEG, GESAMTSTRUKTUR WIRD AM ANFANG BESCHRIEBEN):
@@ -339,7 +420,7 @@ _____________________________________________________________________________
 \par Als Parameter werden die Client- und Benutzerdaten sowie die Nachricht selbst übergeben. Die empfangene Nachricht wird zunächst dekodiert, um den Text in einem lesbaren Format zu erzeugen. Text und Topic der Nachricht werden in einem Dictionary gespeichert und an die Queue übergeben. Der Telegram-Bot kann nun dieses Dictionary problemlos und nahezu in Echtzeit empfangen.
 \subsubsection{Telegram-Bot}
 \par Für die Implementierung des Telegram-Bots wird eine Python-Bibliothek verwendet. Die Implementierung erfolgt in der Datei \texttt{tg\_bot.py}. In dieser Datei wird die Klasse \texttt{Bot} deklariert, die von der \texttt{threading.Thread} erbt. Zunächst sind folgende Imports erforderlich:
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}[language=python]
   from telegram import Update
   from telegram.ext import filters, ApplicationBuilder, CommandHandler, 
         MessageHandler, CallbackContext
@@ -348,7 +429,7 @@ _____________________________________________________________________________
 
   class Bot(threading.Thread):
   ...
-\end{Verbatim}
+\end{lstlisting}
 \par Dem Konstruktor muss ein Queue-Objekt und ein Telegram-Token übergeben werden. Das Token ermöglicht dem Programm den Zugriff auf den Telegram-Bot. In der Klasse \texttt{Bot} werden die Callback-Funktionen für die Reaktion auf empfangene Benutzerbefehle und MQTT-Nachrichten deklariert.
 \par Der Bot wird mit dem Aufruf der \texttt{run()}-Funktion gestartet:
 \begin{Verbatim}[frame=single]
@@ -456,7 +537,7 @@ _____________________________________________________________________________
 \par Sobald das ESP8266 die Daten von dem Arduino empfängt, wird die MQTT-Nachricht an den MQTT-Broker mit dem Befehl \texttt{mqttClient.publish(topic, message)} versandt.
 \par Die Verarbeitung der empfangenen Nachricht erfolgt in der \texttt{callback}-Funktion. Für die Testzwecken wird die Nachricht sofort in das Topic \texttt{PUBLISH\_TOPIC} gesendet.
 
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}[frame=none, language=c, caption={caption text},captionpos=b]
   void callback(char *topic, byte *payload, unsigned int length)
   {
     Serial.print("\nReceived message on topic: ");
@@ -470,7 +551,10 @@ _____________________________________________________________________________
     }
     mqttClient.publish(PUBLISH_TOPIC, callbackMessage.c_str());
   }
-\end{Verbatim}
+\end{lstlisting}
 \newpage
+
 \listoffigures
+\listoftables
+\lstlistoflistings
 \end{document}
