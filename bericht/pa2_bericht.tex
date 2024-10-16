@@ -309,7 +309,7 @@ _____________________________________________________________________________
 \item Konfiguration:
 \begin{Verbatim}[frame=single]
   sudo nano /etc/mosquitto/mosquitto.conf
-_____________________________________________________________________________
+_________________________________________________________________________
   #Konfigurationsdatei für mosquitto
 
   pid_file /run/mosquitto/mosquitto.pid
@@ -344,18 +344,18 @@ _____________________________________________________________________________
 \end{enumerate}
 \begin{table}[h!]
   \centering
-  \begin{tabular}{|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{5cm}|>{\centering\arraybackslash}m{5cm}|}
+  \begin{tabular}{|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{7cm}|}
   \hline
   \textbf{Topic} & \textbf{Nachricht} & \textbf{Definition} \\ \hline
-  \multirow{4}{*}{alarm}  & gas        &  Gassensor hat erhöhte Konzentration von Gas erkannt\\ 
-                          & feuer      &  Feuersensor hat Feuer erkannt\\  \hdashline 
+  \multirow{4}{*}{alarm}  & gas        &  Gassensor hat erhöhte Konzentration von Gas erkannt\\ \cline{2-3}
+                          & feuer      &  Feuersensor hat Feuer erkannt\\  \cline{2-3} 
                           & pir        &  Bewegungssensor hat eine Fremdbewegung erkannt\\  \cline{2-3} 
                           & pin        &  Die PIN wurde falsch eingegeben\\ \hline\cline{2-3}
-  \multirow{3}{*}{status} & pinchanged &  Die PIN wurde geändert \\ 
+  \multirow{3}{*}{status} & pinchanged &  Die PIN wurde geändert \\ \cline{2-3}
                           & gaskon     & Gibt die Gaskonzentration AUS \\ \hline\cline{2-3} 
   \end{tabular}
   
-  \caption{Alarm topics and corresponding messages.}
+  \caption{MQTT-Topics mit möglichen Nachrichten}
   \end{table}
 \subsection{Telegram Bot und Paho-Client}
 \par Bisher kann der Raspberry Pi einen WLAN-Access-Point zur Verfügung stellen und MQTT-Nachrichten empfangen. Es fehlt noch eine Schnittstelle zum Endbenutzer, die ebenfalls auf dem Raspberry Pi implementiert wird. Ich habe mich für ein Telegram-Bot entschieden. Dazu muss ein Verwaltungsmechanismus für die MQTT-Nachrichten entwickelt werden. Für diese Zwecke verwende iche ein Python-Bibliothek \texttt{"paho-mqtt"}.
@@ -475,7 +475,7 @@ _____________________________________________________________________________
       {
         return;
       }
-      // String in char - Feld konvertieren
+      // String in char-Feld konvertieren
       char readSerialChar[readString.length() + 1];
       readString.toCharArray(readSerialChar, readString.length() + 1);
       // Suche Position von ':'
