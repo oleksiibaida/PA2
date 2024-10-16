@@ -8,7 +8,6 @@ from queue import Queue, Empty
 
 class Bot(threading.Thread):
     def __init__(self,queue,token):
-        
         threading.Thread.__init__(self)
         self.token = token
         self.queue = queue
@@ -16,10 +15,7 @@ class Bot(threading.Thread):
 
         # Verbidnung zum DB
         self.db = db.Datenbank()
-        
 
-   
-       
     
     def get_db_json(self):
         try:
