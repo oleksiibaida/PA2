@@ -8,11 +8,8 @@ const char MQTT_BROKER_ADRRESS[] = "192.168.1.1"; // IP von Raspberry
 const int MQTT_PORT = 1883;
 const int buss_serial = 50; // Buffer Groesse fuer UAR-Verbindung
 const char *CLIENT_ID = "client1";
-const char *SUBSCRIBE_TOPIC = "client1/command";
-
-const char *ssid = "RaspEsp";
-const char *password = "mqtt1234";
-const char *mqtt_server = "192.168.1.1";
+const char *TOPIC_COMMAND = "/command";
+char *SUBSCRIBE_TOPIC;
 
 WiFiClient wifiClient;
 PubSubClient mqttClient(wifiClient);
@@ -20,6 +17,19 @@ unsigned long lastMsg = 0;
 #define MSG_BUFFER_SIZE (50)
 char msg[MSG_BUFFER_SIZE];
 int value = 0;
+
+void setup_subscribe()
+{
+  SUBSCRIBE_TOPIC = (char*)malloc(strlen(CLIENT_ID) + strlen(TOPIC_COMMAND) + 1);
+  if (SUBSCRIBE_TOPIC == NULL)
+  {
+    Serial.print("Konnte nicht abonnieren. Default topic");
+    SUBSCRIBE_TOPIC = "all/command";
+  }
+
+  strcpy(SUBSCRIBE_TOPIC, CLIENT_ID);
+  strcat(SUBSCRIBE_TOPIC,TOPIC_COMMAND);
+}
 
 void connect_wifi()
 {
@@ -49,9 +59,9 @@ void connect_wifi()
 
 void callback(char *topic, byte *payload, unsigned int length)
 {
-  Serial.print("Message arrived [");
+  Serial.print("Nacricht erhalten. Topic: ");
   Serial.print(topic);
-  Serial.print("] ");
+  Serial.print(" Text: ");
   for (int i = 0; i < length; i++)
   {
     Serial.print((char)payload[i]);
@@ -79,7 +89,6 @@ void connect_mqtt()
     }
   }
 }
-
 
 // Format topic:message
 void readSerialData()
@@ -129,6 +138,7 @@ void readSerialData()
 void setup()
 {
   Serial.begin(9600);
+  setup_subscribe();
   connect_wifi();
   mqttClient.setServer(MQTT_BROKER_ADRRESS, MQTT_PORT);
   mqttClient.setCallback(callback);
