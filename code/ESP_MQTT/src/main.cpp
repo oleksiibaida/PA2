@@ -10,6 +10,7 @@ const int buss_serial = 50; // Buffer Groesse fuer UAR-Verbindung
 const char *CLIENT_ID = "client1";
 const char *TOPIC_COMMAND = "/command";
 char *SUBSCRIBE_TOPIC;
+char *PUBLISH_TOPIC;
 
 WiFiClient wifiClient;
 PubSubClient mqttClient(wifiClient);
@@ -20,15 +21,17 @@ int value = 0;
 
 void setup_subscribe()
 {
-  SUBSCRIBE_TOPIC = (char*)malloc(strlen(CLIENT_ID) + strlen(TOPIC_COMMAND) + 1);
+  SUBSCRIBE_TOPIC = (char *)malloc(strlen(CLIENT_ID) + strlen(TOPIC_COMMAND) + 1);
   if (SUBSCRIBE_TOPIC == NULL)
   {
     Serial.print("Konnte nicht abonnieren. Default topic");
     SUBSCRIBE_TOPIC = "all/command";
   }
-
-  strcpy(SUBSCRIBE_TOPIC, CLIENT_ID);
-  strcat(SUBSCRIBE_TOPIC,TOPIC_COMMAND);
+  else
+  {
+    strcpy(SUBSCRIBE_TOPIC, CLIENT_ID);
+    strcat(SUBSCRIBE_TOPIC, TOPIC_COMMAND);
+  }
 }
 
 void connect_wifi()
@@ -48,8 +51,6 @@ void connect_wifi()
     delay(500);
     Serial.print(".");
   }
-
-  randomSeed(micros());
 
   Serial.println("");
   Serial.println("WiFi connected");
@@ -123,9 +124,24 @@ void readSerialData()
       strncpy(topic, readSerialChar, topic_length);
       topic[topic_length] = '\0';
       char *message = delim_pos + 1;
-      Serial.printf("\nMessage %s", message);
+      PUBLISH_TOPIC = (char *)malloc(strlen(CLIENT_ID) + strlen(topic) + 2);
+      if (PUBLISH_TOPIC == NULL)
+      {
+        Serial.print("PUBLISH_TOPIC wurde nicht erstellt");
+        SUBSCRIBE_TOPIC = topic;
+      }
+      else
+      {
+        strcpy(PUBLISH_TOPIC, CLIENT_ID);
+        strcat(PUBLISH_TOPIC, "/");
+        strcat(PUBLISH_TOPIC, topic);
+      }
+      Serial.print("\nPublish Topic: ");
+      Serial.print(PUBLISH_TOPIC);
+      Serial.print(" Nachricht:" );
+      Serial.print(message);
       // MQTT-Nachricht senden
-      mqttClient.publish(topic, message);
+      mqttClient.publish(PUBLISH_TOPIC, message);
     }
     else // kein : gefunden
     {
