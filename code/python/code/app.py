@@ -16,14 +16,14 @@ client_id="myid"
 def main():
     q = Queue()
 
-    # mqtt_broker = MqttBroker(q,hostname,port,topic,client_id)
-    # mqtt_broker.run()
+    mqtt_broker = MqttBroker(q,hostname,port,topic,client_id)
+    mqtt_broker.run()
 
     tg_bot = Bot(q,telegram_token)
     tg_bot.run()
 
-    # mqtt_broker.join()
-    # tg_bot.join()
+    mqtt_broker.join()
+    tg_bot.join()
 
 if __name__=="__main__":
     main()

@@ -55,15 +55,15 @@ class Bot(threading.Thread):
 
     async def handle_mqtt_message(self, mqtt_message):
         if mqtt_message['topic'] == "alarm":
-            if mqtt_message['text'] == 'feuer':
+            if mqtt_message['text'] == 'fire_start':
                 await self.send_message("🔥ALARM🔥\nFEUER\n")
-            elif mqtt_message['text'] == 'gas':
+            elif mqtt_message['text'] == 'gas_start':
                 await self.send_message("💨ALARM💨\nGAS\n")
                 print("SENT TG MES")
-            elif mqtt_message['text'] == 'pir':
+            elif mqtt_message['text'] == 'pir_move':
                 await self.send_message("🥷ALARM🥷\nFremdbewegung Erkannt\nAlarm einschalten?")
                 #TODO Turn on Alarm
-            elif mqtt_message['text'] == 'wrongpin':
+            elif mqtt_message['text'] == 'pin_wrong':
                 await self.send_message("🔒ALARM🔒\nFalsche PIN wurde eingegeben!\n Alarm einschalten?")
                 print("SENT TG MES")
         elif mqtt_message['topic'] == "status":
