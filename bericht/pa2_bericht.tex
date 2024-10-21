@@ -103,12 +103,16 @@
 
 \section{Einleitung}
 \subsection{Gesamtüberblick über das System}
-\par Im Rahmen der Projektarbeit 2 entwickle ich mein System aus der Projektarbeit 1 weiter. Ziel des Projektes ist es, das System aus PA 1 dem Endbenutzer möglichst nahtlos zur Verfügung zu stellen. Die Kernidee des Projekts basiert auf der Entwicklung eines Prototyps, um einen realen Bedarf zu decken.
-\par In der PA 1 habe ich ein Sicherheitssystem für das Haus entwickelt. Das System reagiert auf gefährliche Ereignisse wie Feuer, Gas oder Fremdbewegungen und bietet einen sicheren Zugang zum Haus. Das System ist nur offline verfügbar und hat keine Möglichkeit, den Endbenutzer über die Entfernung zu informieren. In diesem Projekt wird das System durch den Einsatz verschiedener Technologien und Hardwarekomponenten für den Endnutzer über das Internet verfügbar gemacht.
+% \par Im Rahmen der Projektarbeit 2 entwickle ich mein System aus der Projektarbeit 1 weiter. Ziel des Projektes ist es, das System aus PA 1 dem Endbenutzer möglichst nahtlos zur Verfügung zu stellen. Die Kernidee des Projekts basiert auf der Entwicklung eines Prototyps, um einen realen Bedarf zu decken.
+% \par In der PA 1 habe ich ein Sicherheitssystem für das Haus entwickelt. Das System reagiert auf gefährliche Ereignisse wie Feuer, Gas oder Fremdbewegungen und bietet einen sicheren Zugang zum Haus. Das System ist nur offline verfügbar und hat keine Möglichkeit, den Endbenutzer über die Entfernung zu informieren. In diesem Projekt wird das System durch den Einsatz verschiedener Technologien und Hardwarekomponenten für den Endnutzer über das Internet verfügbar gemacht.
+\par Im Rahmen der Projektarbeit 2 entwickele ich ein Sicherheitssystem für das Haus. Das System reagiert auf gefährliche Ereignisse wie Feuer, Gas oder Fremdbewegungen und bietet einen sicheren Zugang zum Haus. Das System ist durch den Einsatz verschiedener Technologien und Hardwarekomponenten für den Endnutzer über das Internet verfügbar. Mein Ziel war es, das System so kabellos und tragbar wie möglich zu machen.
+\par Die im Projekt verwendeten Sensoren werden an den Arduino angeschlossen. Den Anschluss der Sensoren habe ich bereits in meiner Projektarbeit 1 \cite{pa1} beschrieben. In diesem Teil des Projektes stelle ich das System dem Endbenutzer über das Internet zur Verfügung. 
+\par Die Abbildung \ref{abb:gesamtplan} zeigt den Gesamtaufbau des Systems. Der Arduino ist über eine serielle UART-Schnittstelle mit dem ESP8266 verbunden. Der ESP8266 wird als WLAN-Modul zur MQTT-Kommunikation zwischen dem Arduino und dem Raspberry Pi verwendet. Der Raspberry Pi ist der zentrale Server des Systems. Er stellt einen WLAN-Access-Point zur Verfügung, verwaltet die MQTT-Nachrichten und steuert den Internetzugang. Die Interaktion mit den Endnutzern erfolgt über den Messenger "Telegram". Der Endnutzer wird über die Gefahr in seiner Wohnung informiert und kann bestimmte Systemeinstellungen ändern. 
+\par In der vorliegenden Ausarbeitung werden zunächst die verwendeten Hardwarekomponenten, Kommunikationstechnologien sowie Softwareprodukte beschrieben. Im Anschluss erfolgt eine detaillierte Darstellung des Systemaufbaus.
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{gesamtplan.jpg}
-  \caption{Gesamtplan}
+  \caption{Struktur des Systems}
   \label{abb:gesamtplan}
 \end{figure}
 \subsection{Verwendete Hardware}
@@ -160,7 +164,7 @@
 \par Ein entscheidender Vorteil der seriellen Kommunikation ist ihre Einfachheit, sowohl in der Implementierung als auch in der Verkabelung. Um die Kommunikation zwischen den Geräten herzustellen, muss die Rx-Leitung (eng. Receiver, Empfänger) eines Gerätes mit der Tx-Leitung (eng. Transceiver, Sender) eines anderen Gerätes verbunden werden. Dadurch entsteht eine Master-Slave-Beziehung zwischen den beiden Geräten, auch wenn sie gleichberechtigt kommunizieren können. Zudem ist UART in den meisten Mikrocontrollern integriert, was die Anwendung vereinfacht und die Kosten minimiert.
 \par In meinem Projekt verwende ich eine UART-Schnittstelle für die Verbindung von Arduino und ESP8266.
 \subsection{Verwendete Software} 
-\subsubsection{Pyhton}
+\subsubsection{Python}
 \par Python ist eine weit verbreitete höhere Programmiersprache. Sie wurde 1991 von Guido van Rossum veröffentlicht.
 \par Python hat eine klare und leicht lesbare Syntax. Die Strukturierung von Blöcken erfolgt nicht durch geschweifte Klammern, sondern durch Einrückungen. Python unterstützt verschiedene Programmierparadigmen wie objektorientierte, aspektorientierte und funktionale Programmierung. Zudem bietet Python eine dynamische Typisierung.
 \par Python ist plattformunabhängig. Der Code von Python-Skripten wird nicht direkt in Maschinencode kompiliert, sondern zur Laufzeit in den Bytecode übersetzt. Der Bytecode ist nicht systemspezifisch, sondern stellt eine Zwischenschicht dar. Der Bytecode wird dann von der Python Virtual Machine (PVM) interpretiert und ausgeführt. Die PVM übernimmt die betriebssystemspezifischen Aufgaben wie Speicherverwaltung, Zugriff auf Prozessoren oder die Nutzung von Systembibliotheken. Dadurch können Python-Programme auf verschiedenen Plattformen ausgeführt werden, sofern eine geeignete PVM für die Plattform vorhanden ist.
@@ -174,7 +178,7 @@
 \par Telegram ist ein Cloud-basierter Instant-Messaging-Dienst. Er wurde 2013 von den Brüdern Durov entwickelt. Der Messenger zeichnet sich durch hohe Sicherheit, Flexibilität und Plattformunabhängigkeit aus. Telegram kann auf unterschiedlichen Geräten genutzt werden. Die Chats sowie die Nutzerdaten werden in einer Cloud gespeichert und in Echtzeit synchronisiert. Telegram unterstützt Einzel- und Gruppenchats, Sprach- und Videoanrufe, die Übertragung von Bildern, Videos oder anderen Dateien. Durch den Einsatz einer Ende-zu-Ende-Verschlüsselung in sogenannten "Secret Chats" gewährleistet Telegram eine hohe Datensicherheit. Die regulären Chats werden in der Cloud gespeichert und verschlüsselt übertragen.
 \par Was Telegram besonders auszeichnet und bei Entwicklern beliebt macht, ist die Unterstützung von Bots. Bots sind automatisierte Programme, die über Telegram mit Nutzern interagieren können. Bots können zur Automatisierung von Aufgaben, zur Bereitstellung von Informationen oder zur Unterhaltung eingesetzt werden. Die offene API von Telegram ermöglicht es Entwicklern, ihre eigenen Bots zu erstellen und deren Funktionalität an spezifische Anforderungen anzupassen. Die neueste Version unterstützt auch die Nutzung von Webanwendungen direkt über den Bot.
 \par Jeder Telegram-Nutzer kann einen Telegram-Bot erstellen. Die Bots werden vom Bot @BotFather verwaltet. Der Benutzer muss @BotFather aufrufen und dann einen neuen Bot erstellen. Dabei wird nach dem Namen und dem Benutzernamen gefragt, der mit “bot” enden muss. Anschließend wird ein Bot erstellt und diesem ein API-Token zugewiesen. Dieses Token wird im Programmcode verwendet, um den Zugriff auf den Bot zu ermöglichen.
-\subsubsection{Pyhton-Telegram-Bot}
+\subsubsection{Python-Telegram-Bot}
 \label{sec:telegram-bot}
 \par Für die Programmierung des Telegram-Bots wird eine \texttt{python-telegram-bot}-Bibliothek verwendet. Die Bibliothek bietet eine umfangreiche API zur Verwaltung der Bot-Funktionalität. Um den Bot zu starten, muss eine Applikation mit dem Token erstellt und auf Polling gesetzt werden.
 \par Die Bibliothek unterstützt den Empfang und Versand von Nachrichten in verschiedenen Formaten. Entwickler können den Bot so konfigurieren, dass er auf bestimmte Nachrichten oder Befehle reagiert, indem sie "Handler" definieren, die das Verhalten des Bots steuern. Der Bot kann auch Nachrichten senden, ohne dass der Benutzer im Chat aktiv ist.
@@ -535,26 +539,66 @@ _________________________________________________________________________
 \end{Verbatim}
 \par Nach erfolgreicher Erstellung der Verbindung mit dem MQTT-Broker muss das ESP8266 das Topic \texttt{UBSCRIBE\_TOPIC} abonnieren, um die Befehle von dem Broker zu erhalten. Das ermöglicht beideseitige Kommunikation zwischen ESP8266 und MQTT-Broker.
 \par Sobald das ESP8266 die Daten von dem Arduino empfängt, wird die MQTT-Nachricht an den MQTT-Broker mit dem Befehl \texttt{mqttClient.publish(topic, message)} versandt.
-\par Die Verarbeitung der empfangenen Nachricht erfolgt in der \texttt{callback}-Funktion. Für die Testzwecken wird die Nachricht sofort in das Topic \texttt{PUBLISH\_TOPIC} gesendet.
+\par Die Verarbeitung der empfangenen Nachricht erfolgt in der \texttt{callback}-Funktion. Für die Testzwecken wird die erhaltene Nachricht in die Konsole ausgegeben. Für die Zukunft ist geplant, die Netzwerkkonfiguration sowie MQTT-Clients auf dem ESP8266 über MQTT-Nachrichten zu steuern.
 
 \begin{lstlisting}[frame=none, language=c, caption={caption text},captionpos=b]
   void callback(char *topic, byte *payload, unsigned int length)
+{
+  Serial.print("Nacricht erhalten. Topic: ");
+  Serial.print(topic);
+  Serial.print(" Text: ");
+  for (int i = 0; i < length; i++)
   {
-    Serial.print("\nReceived message on topic: ");
-    Serial.print(topic);
-    Serial.print(". Payload: ");
-    String callbackMessage = "Received message:  ";
-    for (unsigned int i = 0; i < length; i++)
-    {
-      Serial.print((char)payload[i]);
-      callbackMessage += (char)payload[i];
-    }
-    mqttClient.publish(PUBLISH_TOPIC, callbackMessage.c_str());
+    Serial.print((char)payload[i]);
   }
+  Serial.println();
+}
 \end{lstlisting}
 \newpage
 
+\section{Quellen}
+\begin{thebibliography}{20}
+  \bibitem{pa1}
+  O. Baida,
+  \textit{Anbindung der Sensoren und Aktoren an den Arduino zur Realisierung eines Sicherheitssystems},
+  Projektarbeit 1, 2024.
+
+  \bibitem{code}
+  O. Baida, Programmcode für PA2: \url{https://github.com/oleksiibaida/PA2.git}
+  \par \textbf{Links zur verwendeten Hardware:}
+  \bibitem{arduino}
+  Arduino.cc, \textit{Arduino UNO}, \url{https://docs.arduino.cc/hardware/uno-rev3/}
+  \bibitem{raspi}
+  Raspberry Pi Foundation, \textit{Raspberry Pi 1 B+}, \url{https://www.raspberrypi.com/products/raspberry-pi-1-model-b-plus/}
+  \bibitem{esp8266}
+  Espressif, \textit{ESP8266}, \url{https://www.espressif.com/}
+  \par \textbf{Links zur verwendeten Software:}
+  \par Linux-Packete:
+  \bibitem{hostapd}
+  Jouni Malinen, \textit{hostapd}, \url{https://w1.fi/hostapd/}, Zugriff am: 19. September 2024.
+  \bibitem{dnsmasq}
+  Simon Kelley, \textit{dnsmasq}, \url{https://dnsmasq.org/doc.html}, Zugriff am: 20. September 2024.
+  \bibitem{mosquitto}
+  Eclipse Foundation, \textit{Eclipse Mosquitto}, \url{https://mosquitto.org/}
+  \par \textbf{Links zur ESP- und Arduino-Bibliotheken}
+  \bibitem{pubsub} 
+  Knolleary, \textit{PubSubClient}, \url{https://pubsubclient.knolleary.net/}, Zugriff am: 21. Oktober 2024.
+  \par \textbf{Links zur Python-Bibliotheken}
+  \bibitem{paho}
+  Pierre Fersing, Roger Light \textit{paho-mqtt}, \url{https://pypi.org/project/paho-mqtt/}, Zugriff am: 21. Oktober 2024.
+  \bibitem{tgbot}
+  Open Source, \textit{python-telegram-bot}, \url{https://docs.python-telegram-bot.org/en/v21.6/}
+  \bibitem{queue}
+  Python Software Foundation, \textit{queue}, \url{https://docs.python.org/3/library/queue.html}
+\end{thebibliography}
+
+
+
 \listoffigures
+\addcontentsline{toc}{section}{Abbildungsverzeichnis}
+
 \listoftables
+\addcontentsline{toc}{section}{Tabellenverzeichnis}
 \lstlistoflistings
+\addcontentsline{toc}{section}{Programmcode}
 \end{document}
