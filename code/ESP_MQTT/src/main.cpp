@@ -4,7 +4,7 @@
 // Hotspot ist Raspberry PI
 const char WIFI_SSID[] = "RaspEsp";
 const char WIFI_PASSWORD[] = "mqtt1234";
-const char MQTT_BROKER_ADRRESS[] = "192.168.1.1"; // IP von Raspberry
+const char MQTT_BROKER_ADRRESS[] = "192.144.1.1"; // IP von Raspberry
 const int MQTT_PORT = 1883;
 const int buss_serial = 50; // Buffer Groesse fuer UAR-Verbindung
 const char *CLIENT_ID = "client1";
@@ -156,14 +156,16 @@ void setup()
   Serial.begin(9600);
   setup_subscribe();
   connect_wifi();
-  mqttClient.setServer(MQTT_BROKER_ADRRESS, MQTT_PORT);
+  mqttClient.setServer(WiFi.gatewayIP(), MQTT_PORT);
   mqttClient.setCallback(callback);
   connect_mqtt();
 }
 
 void loop()
 {
-
+  if(WiFi.status() != WL_CONNECTED){
+    connect_wifi();
+  }
   if (!mqttClient.connected())
   {
     connect_mqtt();
