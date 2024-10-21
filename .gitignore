@@ -6,3 +6,13 @@ __pycache__/
 .pio/
 
 .vscode/
+
+*.aux
+*.fdb_latexmk
+*.fls
+*.lof
+*.lol
+*.lot
+*.out
+*.synctex.gz
+*.toc
