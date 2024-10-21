@@ -27,8 +27,8 @@ class MqttBroker:
         mes=str(msg.payload.decode('utf-8'))
         message = {'topic' : msg.topic, 'text' : mes}  
         print(f"MQTT-BROKER: Erhalten mqtt-message: Topic: {message['topic']}, text: {message['text']}")
-        
         self.queue.put(message)
+        
 
 
     # Reaktion auf Verbindungsausfahl
