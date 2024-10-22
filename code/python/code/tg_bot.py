@@ -5,6 +5,8 @@ import json
 import db
 from queue import Queue, Empty
 
+#Definiere States fuer die Kommunikation
+SEND_DEVICE_ID, HOME_PAGE = range(2)
 
 class Bot(threading.Thread):
     def __init__(self,queue,token):
@@ -12,9 +14,13 @@ class Bot(threading.Thread):
         self.token = token
         self.queue = queue
         self.db_json = 'include/users.json'
-
+        self.messages = self.load_messages_json()
         # Verbidnung zum DB
         self.db = db.Datenbank()
+
+    def load_messages_json(self):
+        with open("include/messages.json", 'r', encoding='utf-8') as file:
+            return json.load(file)
 
     
     def get_db_json(self):
@@ -23,23 +29,39 @@ class Bot(threading.Thread):
                 return json.load(file)
         except FileNotFoundError:
             return {}
+        
+    async def send_many_messages(self, users: list, msg_type: str = None, text: str = None):
+        """
+        Sendet gleiche Nachricht an alle IDs in users
+        :param users: List von users
+        """
+        if len(users) == 0:
+            print("TG-BOT: Kein User uebergeben")
+            return
+        for user in users:
+            await self.send_message(user=user, msg_type=msg_type, text=text)
 
-
-    async def command_start(self, update:Update, context:CallbackContext):
-        self.chat_id = update.effective_chat.id
-        print('Chatid: ',self.chat_id)
-        print('Fullname: ', update.effective_chat.full_name)
-        print('USername: ',update.effective_user.name)
-        print('UserID ', update.effective_user.to_dict())
-        self.db.add_user(update.effective_user.to_dict())
-        print("get user data")
-        get_user_data = self.db.get_user_data_db(id=update.effective_user.id)
-        print(get_user_data['id'],' GET ',get_user_data['first_name'])
-        await self.application.bot.send_message(self.chat_id,"STARTing this bot")
-
-    async def send_message(self, text):
-        print('TG-BOT: Nachricht senden in TG:\n', text)
-        await self.application.bot.send_message(self.chat_id,text)
+    async def send_message(self, user: dict, msg_type: str = None, text: str = None):
+        """
+        Sendet eine Nachricht in Telegram-Bot
+        :param self:
+        :param user: User, der die Nachricht erhaelt
+        :param msg_type: OPTIONAL Name des Nachricht in messages.json
+        :param text: OPTIONAL freier Text
+        Einer der beiden Parameters muss ueberegen sein
+        """
+    
+        msg_text = ""
+        if msg_type is not None:
+            msg_text = self.messages[msg_type][user['language_code']].format(username = user['username'] if user['username'] else user['first_name'])
+        elif text is not None:
+            msg_text = text
+        else:
+            print("TG-BOT: Kein Text fuer die Nachricht uebergeben")
+            return
+        
+        print('TG-BOT: Nachricht senden: CHAT:', user['id'], "Text:", msg_text)
+        await self.application.bot.send_message(user['id'], msg_text)
 
     async def wait_mqtt_message(self, context:CallbackContext):
         try:
@@ -54,9 +76,25 @@ class Bot(threading.Thread):
             pass
 
     async def handle_mqtt_message(self, mqtt_message):
+        topic, dev_id = mqtt_message['topic'].split('/')
+        print("topic", topic, "dev_id", dev_id)
+        users = self.db.get_users_on_device(dev_id)
+        mqtt_text = mqtt_message['text']
+        msg_text = ""
+        if topic == "alarm":
+            if mqtt_text == 'fire_start':
+                await self.send_many_messages(users=users, msg_type="fire_start")
+            elif mqtt_text == 'fire_stop':
+                await self.send_many_messages(users=users, msg_type="fire_stop")
+        elif topic == "status":
+            print("topic status")
+        else:
+            print("unknown topic")    
+        """ BACKUP
         if mqtt_message['topic'] == "alarm":
             if mqtt_message['text'] == 'fire_start':
-                await self.send_message("🔥ALARM🔥\nFEUER\n")
+                msg_text = "🔥ALARM🔥\nFEUER\n"
+                await self.send_message()
             elif mqtt_message['text'] == 'gas_start':
                 await self.send_message("💨ALARM💨\nGAS\n")
                 print("SENT TG MES")
@@ -70,21 +108,73 @@ class Bot(threading.Thread):
             if mqtt_message['text'] == 'pinchanged':
                 await self.send_message("Neue PIN eingegeben")
             elif mqtt_message['text'] == 'feuer':
-                await self.send_message('status feuer')
+                await self.send_message('status feuer')"""
 
     async def test(self, update:Update, context:CallbackContext):
-        print(f"Erhalten Nachricht von chat_id: {update.effective_chat.id}; text: {update.message.text}")
+        print("TEST")
+        mqtt_message = {"topic": "alarm/123", "text": "fire_start"}
+        await self.handle_mqtt_message(mqtt_message)
+
+    async def fallback(self, update:Update, context:CallbackContext):
+        msg_text = self.messages["cancel_conversation"][update.effective_user.language_code]
+        await self.application.bot.send_message(update.effective_user.id, msg_text)
+
+    async def command_start(self, update:Update, context:CallbackContext):
+        user = update.effective_user.to_dict()
+        if self.db.user_exists(user['id']):
+            print("user exists")
+            return HOME_PAGE
+        else:
+            print("new user")
+            await self.send_message(user, "new_user_welcome_message")
+            return SEND_DEVICE_ID
+
+    async def get_device_id(self, update:Update, context:CallbackContext):
+        print("GET DEVICE ID")
+        user = update.effective_user.to_dict()
+        dev_id = update.effective_message.text
+        print('dev_id:', dev_id)
+        if self.check_device_id(dev_id):
+            self.db.add_user(user_data=user, device_id=dev_id)
+            await self.send_message(user=user, msg_type="welcome_message")
+            return HOME_PAGE
+        else:
+            await self.send_message(user=user, msg_type="wrong_device_id")
+            return SEND_DEVICE_ID
+        
+    async def command_home(self, update:Update, context:CallbackContext):
+        user = update.effective_user.to_dict()
+        await self.send_message(user=user, text="Welcome on Home Page")
+        
+
+    def check_device_id(self, id: str):
+        """TODO CHekc if device has license"""
+        if len(id) > 10 or type(id) != str:  return 0
+        return 1
+
+    def init_handlers(self):
+        test_handler = CommandHandler('test', self.test)
+        start_handler = ConversationHandler(
+            entry_points=[CommandHandler('start', self.command_start)],
+            states={
+                SEND_DEVICE_ID: [
+                    MessageHandler(filters.TEXT & ~filters.COMMAND, self.get_device_id),
+                ],
+                HOME_PAGE: [
+                    CommandHandler('home', self.command_home)
+                ]
+            },
+            fallbacks=[CommandHandler('cancel', self.fallback)]
+        )
+        self.application.add_handlers([test_handler,start_handler])
+        print("HANDLERS INIT")
 
     def run(self):
         try:
             self.application = ApplicationBuilder().token(self.token).build()
-            print("APP:",self.application)
-            self.application.add_handler(CommandHandler('start', self.command_start))
-            # self.application.add_handler(CommandHandler('send', self.test))
-            self.application.add_handler(MessageHandler(filters.ALL, self.test))
-            
+            # self.application.add_handler(MessageHandler(filters.ALL, self.test))
+            self.init_handlers()
             job_queue = self.application.job_queue
-            print("job_queu", job_queue)
             if job_queue:
                 job_queue.run_repeating(self.wait_mqtt_message, interval = 1)
             self.application.run_polling(allowed_updates = Update.ALL_TYPES)

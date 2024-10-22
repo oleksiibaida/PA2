@@ -1,0 +1,32 @@
+{
+    "new_user_welcome_message":{
+        "en": "Hello, !\nPlease type the ID of your device to register it.",
+        "de": "Moin, {username}!\nBitte gebe die ID deines Geräts ein.",
+        "uk": "Moin, {username}!\nBitte gebe die ID deines Geräts ein."
+    },
+    "welcome_message":{
+        "en": "Welcome, {username}!\nChoose your option below:",
+        "de": "Willkommen, {username}!\nWähle deine Option:",
+        "uk": "Willkommen, {username}!\nWähle deine Option:"
+    },
+    "cancel_conversation":{
+        "en": "Cancel conversation",
+        "de": "Abbruch",
+        "uk": "Abbruch"
+    },
+    "wrong_device_id":{
+        "en": "Please enter correct ID of your device",
+        "de": "Bitte die richtige ID des Geräts eingeben",
+        "uk": "Bitte die richtige ID des Geräts eingeben"
+    },
+    "fire_start":{
+        "en": "🔥ALARM🔥\nFIRE IN THE BUILDING\n",
+        "de": "🔥ALARM🔥\nFEUER IM HAUS\n",
+        "uk": "🔥ALARM🔥\nFEUER IM HAUS\n"
+    },
+    "fire_stop":{
+        "en": "🚒🧯 Fire was stopped",
+        "de": "🚒🧯 Feuer wurde gelöscht",
+        "uk": "🚒🧯 Feuer wurde gelöscht"
+    }
+}
