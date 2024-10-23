@@ -109,6 +109,7 @@ class Datenbank():
 #     }
 
 db = Datenbank()
-res = db.list_all_users()
-for _ in res:
-    print(_)
+# res = db.delete_table_users()
+# res = db.list_all_users()
+# for _ in res:
+#     print(_)

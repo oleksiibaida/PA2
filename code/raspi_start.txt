@@ -7,7 +7,8 @@ sudo apt-get update
 sudo apt-get install -y hostapd dnsmasq mosquitto mosquitto-clients python3 python3-pip
 
 # Python-Pakete installieren
-sudo pip3 install paho-mqtt python-telegram-bot
+sudo pip3 install paho-mqtt python-telegram-bot pyzbar opencv-python
+
 
 # Konfigurationsdatei für hostapd
 sudo bash -c 'cat > /etc/hostapd/hostapd.conf <<EOL

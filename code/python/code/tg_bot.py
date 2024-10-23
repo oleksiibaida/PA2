@@ -4,6 +4,10 @@ import threading
 import json
 import db
 from queue import Queue, Empty
+import cv2
+from pyzbar.pyzbar import decode
+import os
+import aiohttp
 
 #Definiere States fuer die Kommunikation
 SEND_DEVICE_ID, HOME_PAGE = range(2)
@@ -53,7 +57,8 @@ class Bot(threading.Thread):
     
         msg_text = ""
         if msg_type is not None:
-            msg_text = self.messages[msg_type][user['language_code']].format(username = user['username'] if user['username'] else user['first_name'])
+            language = user['language_code'] if user['language_code'] in self.messages else "en"
+            msg_text = self.messages[msg_type][language].format(username = user['username'] if user['username'] else user['first_name'])
         elif text is not None:
             msg_text = text
         else:
@@ -141,10 +146,67 @@ class Bot(threading.Thread):
         else:
             await self.send_message(user=user, msg_type="wrong_device_id")
             return SEND_DEVICE_ID
+
+
+    async def get_device_id_qr(self, update:Update, context:CallbackContext):
+        # GET Daten aus der geschickte Datei oder Photo
+        if update.message.photo:
+            file = await update.message.photo[-1].get_file()
+        elif update.message.document and update.message.document.mime_type.startswith("image/"):
+            file = await update.message.document.get_file()
+        else:
+            self.send_message(user=update.effective_user, msg_type="qr_code_wrong_format")
+
+        # Pfad zur Datei definieren
+        path = fr"include\qr_codes\qr_code_{update.effective_chat.id}.jpg"
+        # Datei herunterladen
+        try:
+            file_url = file.file_path
+            print("file_url:", file_url)
+            async with aiohttp.ClientSession() as session:
+                async with session.get(file_url) as response:
+                    if response.status == 200:
+                        with open(path, 'wb') as _:
+                            _.write(await response.read())
+                    else:
+                        self.send_message(user=update.effective_user.to_dict(), msg_type="file_download_error")
+                        return SEND_DEVICE_ID
+        except Exception as e:
+            print("FILE_DOWNLOAD_EXEPTION:",e)
+            await self.send_message(user=update.effective_user.to_dict(), msg_type="qr_code_wrong_format")
+            return SEND_DEVICE_ID
+        
+        try:
+            file = cv2.imread(path)
+            file = decode(file)
+
+            if file:
+                for _ in file:
+                    qr_text = _.data.decode('utf-8')
+                    print("device_id QR:", qr_text)
+                    if self.check_device_id(qr_text):
+                        self.db.add_user(user_data=update.effective_user.to_dict(), device_id=qr_text)
+                        await self.send_message(user=update.effective_user.to_dict(), msg_type="welcome_message")
+                        return HOME_PAGE
+                    else:
+                        await self.send_message(user=update.effective_user.to_dict(), msg_type="no_qr_code_photo")
+                        return SEND_DEVICE_ID
+            else:
+                await self.send_message(user=update.effective_user, msg_type="no_qr_code")
+                return SEND_DEVICE_ID
+        except Exception as e:
+            print("FILE_ERROR:",e)
+        finally:
+            if os.path.exists(path):
+                os.remove(path)
+
+
         
     async def command_home(self, update:Update, context:CallbackContext):
         user = update.effective_user.to_dict()
         await self.send_message(user=user, text="Welcome on Home Page")
+    
+
         
 
     def check_device_id(self, id: str):
@@ -159,6 +221,7 @@ class Bot(threading.Thread):
             states={
                 SEND_DEVICE_ID: [
                     MessageHandler(filters.TEXT & ~filters.COMMAND, self.get_device_id),
+                    MessageHandler(filters.PHOTO | filters.Document.IMAGE, self.get_device_id_qr)
                 ],
                 HOME_PAGE: [
                     CommandHandler('home', self.command_home)
