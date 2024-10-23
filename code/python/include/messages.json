@@ -1,0 +1,45 @@
+{
+    "languages": ["en"],
+    "new_user_welcome_message":{
+        "en": "Hello, !\nPlease type the ID of your device or make photo of QR code on the device.",
+        "de": "Moin, {username}!\nBitte gebe die ID deines Geräts ein.",
+        "uk": "Moin, {username}!\nBitte gebe die ID deines Geräts ein."
+    },
+    "welcome_message":{
+        "en": "Welcome, {username}!\nChoose your option below:",
+        "de": "Willkommen, {username}!\nWähle deine Option:",
+        "uk": "Willkommen, {username}!\nWähle deine Option:"
+    },
+    "qr_code_wrong_format":{
+        "en": "Sorry, the format of your file is not supported. Try to send foto or enter manually"
+    },
+    "no_qr_code_photo":{
+        "en": "No QR code found. Please send photo as file."
+    },
+    "no_qr_code_file":{
+        "en": "No QR code found. Please type it manually."
+    },
+    "file_download_error":{
+        "en": "Error while loading the file. Please try again"
+    },
+    "cancel_conversation":{
+        "en": "Cancel conversation",
+        "de": "Abbruch",
+        "uk": "Abbruch"
+    },
+    "wrong_device_id":{
+        "en": "Please enter correct ID of your device",
+        "de": "Bitte die richtige ID des Geräts eingeben",
+        "uk": "Bitte die richtige ID des Geräts eingeben"
+    },
+    "fire_start":{
+        "en": "🔥ALARM🔥\nFIRE IN THE BUILDING\n",
+        "de": "🔥ALARM🔥\nFEUER IM HAUS\n",
+        "uk": "🔥ALARM🔥\nFEUER IM HAUS\n"
+    },
+    "fire_stop":{
+        "en": "🚒🧯 Fire was stopped",
+        "de": "🚒🧯 Feuer wurde gelöscht",
+        "uk": "🚒🧯 Feuer wurde gelöscht"
+    }
+}
