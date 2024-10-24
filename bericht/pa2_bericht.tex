@@ -124,8 +124,8 @@
 \end{figure}
 \subsection{Verwendete Hardware}
 \subsubsection{Raspberry Pi}
-\par Im Kern des Systems liegt der Raspberry Pi. Der Raspberry Pi dient als zentraler Server des Systems. Er hat verschiedene Funktionen im System. Der Raspberry Pi dient als MQTT-Broker, um die MQTT-Nachrichten zu verarbeiten. Er stellt einen WLAN-Zugriffspunkt zur Verfügung. Der Raspberry Pi dient auch als Host für den Telegram-Bot. 
-\par Für das Projekt verwende ich den Raspberry Pi 1.0 Modell B+. Raspberry Pi ist ein kompakter und kostengünstiger Einplatinencomputer. Die technischen Daten sind in der Tabelle \ref{tbl:raspberry_tech} aufgeführt.
+\par Im Kern des Systems liegt der Raspberry Pi. Der Raspberry Pi dient als zentraler Server des Systems und hat verschiedene Funktionen. Der Raspberry Pi dient als MQTT-Broker, um die MQTT-Nachrichten zu verarbeiten. Er stellt einen WLAN-Zugriffspunkt zur Verfügung. Der Raspberry Pi dient auch als Hostserver für den Telegram-Bot. 
+\par Für das Projekt verwende ich den Raspberry Pi 1.0 Modell B+. Der Raspberry Pi ist ein kompakter und kostengünstiger Einplatinencomputer. Die technischen Daten sind in der Tabelle \ref{tbl:raspberry_tech} gelistet.
 \begin{table}[h!]
   \centering
   \renewcommand{\arraystretch}{1.5}
@@ -148,7 +148,7 @@
   \label{tbl:raspberry_tech}
   \end{table}
 \subsubsection{ESP8266}
-\par Das System, das ich in PA 1 entwickelt habe, basiert auf Arduino und verfügt über keine Schnittstelle zum Internet. In diesem Projekt verwende ich dafür ein ESP8266 Modul. Der Arduino ist über eine UART-Schnittstelle mit dem ESP8266 verbunden. Das ESP8266 verbindet sich mit dem vom Raspberry Pi bereitgestellten WLAN sowie mit dem MQTT-Broker, der auf dem Raspberry Pi läuft. Dadurch wird eine Verbindung vom Arduino zum Internet über den Raspberry Pi hergestellt.
+\par Das System, das ich in PA 1 entwickelt habe, basiert auf Arduino und verfügt über keine Schnittstelle zum Internet. In diesem Projekt verwende ich dafür ein ESP8266 Modul. Der Arduino ist über eine UART-Schnittstelle mit dem ESP8266 verbunden. Das ESP8266 verbindet sich mit dem vom Raspberry Pi bereitgestellten WLAN sowie mit dem MQTT-Broker, der auf dem Raspberry Pi läuft. Dadurch wird eine Verbindung vom Arduino zum MQTT-Broker auf dem Raspberry Pi hergestellt.
 \par Das ESP8266 ist ein kleines, günstiges WLAN-Modul. Es wurde von Espressif Systems entwickelt. Das Modul ermöglicht die kabellose Verbindung von Mikrocontrollern mit dem Internet. In meinem Projekt verwende ich das ESP8266, um den Arduino drahtlos mit dem Raspberry PI zu verbinden.
 \par Das ESP8266 basiert auf einem 32-Bit-Prozessor und hat einen Systemtakt von 80 MHz bis 160 MHz. Das Modul verfügt über 64 kB RAM als Befehlsspeicher und 96 kB RAM als Datenspeicher. Das ESP8266 besitzt keinen internen Flash-Speicher für die Firware. Ansonsten wird die Firmware in einem externen Flash-Speicher abgelegt und wird blockweise in den RAM-Speicher geladen. Je nach Modell verfügt das ESP8266 über verschiedene Schnittstellen wie I/O-Ports und I2C. Ich verwende das Modell mit WLAN und UART. Über den UART-Port wird der Programmcode in das ESP8266 geladen. Das Modul muss mit einer Spannung von 5 V versorgt werden.
 \par Das ESP8266 ist mit vielen Programmiersprachen kompatibel. Für die Programmierung des Moduls verwende ich Visual Studio Code mit der PlatformIO Erweiterung. 
@@ -168,8 +168,8 @@
 \subsubsection{UART}
 \par UART\footnote[2]{Universal Asynchronous Receiver Transmitter} ist eine Hardwarekomponente, die die serielle Datenübertragung bei der Kommunikation zwischen Mikrocontrollern und anderen Geräten ermöglicht. Eine UART-Schnittstelle ist der Standard für serielle Schnittstellen an PCs und Mikrocontrollern und wird zum Senden und Empfangen von Daten über eine Datenleitung verwendet.
 \par UART arbeitet asynchron, d.h. es gibt keine gemeinsame Taktverbindung zwischen den kommunizierenden Geräten. Stattdessen wird die Datenübertragung durch Start- und Stoppbits synchronisiert. Diese ermöglichen es dem Empfänger, den Beginn und das Ende eines Datenpakets zu erkennen. Ein typisches Datenpaket besteht aus einem Startbit, gefolgt von einer festgelegten Anzahl von Datenbits (normalerweise 8), einem optionalen Paritätsbit zur Fehlerkontrolle und einem oder mehreren Stoppbits. Der Vorteil besteht darin, dass keine permanente Synchronisation zwischen Empfänger und Sender erforderlich ist. Sie müssen nur für die Dauer der Übertragung synchronisiert sein. Wenn keine Daten zu übertragen sind, setzt der Sender die Leitung auf die Polarität des Stopbits.
-\par Ein entscheidender Vorteil der seriellen Kommunikation ist ihre Einfachheit, sowohl in der Implementierung als auch in der Verkabelung. Um die Kommunikation zwischen den Geräten herzustellen, muss die Rx-Leitung (eng. Receiver, Empfänger) eines Gerätes mit der Tx-Leitung (eng. Transceiver, Sender) eines anderen Gerätes verbunden werden. Dadurch entsteht eine Master-Slave-Beziehung zwischen den beiden Geräten, auch wenn sie gleichberechtigt kommunizieren können. Zudem ist UART in den meisten Mikrocontrollern integriert, was die Anwendung vereinfacht und die Kosten minimiert.
-\par In meinem Projekt verwende ich eine UART-Schnittstelle für die Verbindung von Arduino und ESP8266.
+\par Ein entscheidender Vorteil der seriellen Kommunikation ist ihre Einfachheit, sowohl in der Implementierung als auch in der Verkabelung. Um die Kommunikation zwischen den Geräten herzustellen, muss die Rx-Leitung eines Geräts mit der Tx-Leitung des anderen Geräts verbunden werden und umgekehrt: Die Tx-Leitung des ersten Geräts wird mit der Rx-Leitung des zweiten Geräts verbunden. Dadurch entsteht eine Master-Slave-Beziehung zwischen den beiden Geräten, auch wenn sie gleichberechtigt kommunizieren können. Zudem ist UART in den meisten Mikrocontrollern integriert, was die Anwendung vereinfacht und die Kosten minimiert.
+\par In meinem Projekt nutze ich eine UART-Schnittstelle, um den Arduino mit dem ESP8266 zu verbinden und damit die serielle Kommunikation zu ermöglichen.
 \subsection{Verwendete Software} 
 \subsubsection{Python}
 \par Python ist eine weit verbreitete höhere Programmiersprache. Sie wurde 1991 von Guido van Rossum veröffentlicht.
@@ -181,7 +181,7 @@
 \par Für die Behandlung der MQTT-Nachrichten, die an den Broker gesendet wurden, wird eine Paho-MQTT-Bibliothek für Python verwendet. Die Bibliothek wurde von der Eclipse Foundation entwickelt und ermöglicht eine einfache und schnelle Kommunikation im MQTT-Protokoll. Sie ist sehr gut für IoT-Anwendungen geeignet. 
 \par Durch die Verwendung von Paho-Mqtt können die Nachrichten an bestimmte Topic gesendet werden und der Client kann ein oder mehrere Topics abonnieren. Die Bibliothek bietet eine ereignisorientierte Programmierung, die auf spezifische Ereignisse wie Verbindungsaufbau oder Nachrichteneingang reagiert. Dank der Thread-Sicherheit eignet sich Paho-MQTT gut für Anwendungen, die in einer multithreaded Umgebung arbeiten.
 \par Beim Start des Programms muss in der run()-Methode eine loop()-Funktion gestart werden. Sie sorgt dafür, dass Nachrichten empfangen, gesendet und Callback-Funktionen ausgeführt werden, wenn Nachrichten eintreffen oder Verbindungsereignisse auftreten.
-\subsection{SQLite}
+\subsubsection{SQLite}
 \par In meinem Projekt werden die Benutzer, die ihr Gerät über den Telegram-Bot registriert haben, in der Datenbank gespeichert. Da die Datenbank lokal auf dem Raspberry Pi implementiert ist, muss auf die begrenzten Ressourcen des Raspberry Pi Rücksicht genommen werden. Daher wird eine Datenbank benötigt, die auch ohne Server läuft.
 \par SQLite ist eine Open-Source-Datenbank, die sich besonders für Anwendungen eignet, die eine einfache und leichtgewichtige Datenbanklösung benötigen. Im Gegensatz zu vielen anderen relationalen Datenbanksystemen (RDBMS) benötigt SQLite keinen Server. Die gesamte Datenbank ist in einer einzigen Datei im lokalen Speicher abgelegt.
 \par In Python erfolgt die Anbindung an SQLite über die Bibliothek sqlite3, die in der Standardbibliothek von Python enthalten ist. Entwickler können mit einfachen Python-Befehlen SQL-Abfragen ausführen, Daten einfügen, aktualisieren und löschen sowie Datenbankstrukturen erstellen und ändern. Eine typische Anwendung beginnt mit dem Herstellen einer Verbindung zur Datenbank mit sqlite3.connect(), gefolgt von der Ausführung von SQL-Befehlen mit Hilfe eines Cursors.
@@ -206,8 +206,7 @@
   \item Die Sicherheit der Verbindung wird dadurch erhöht, dass das lokale WLAN von außen (aus dem Internet) nicht sichtbar ist. Zusätzlich kann auf dem Raspberry Pi eine Firewall für die Internetverbindung eingerichtet werden.
   \item Das gesamte System ist portabler. Wenn das System an einem anderen Ort installiert wird, muss nur die Internetverbindung mit dem Raspberry Pi eingerichtet werden. Das lokale WLAN muss nicht angepasst werden.
 \end{itemize}
-\par Weiter unten wird die Einstellung des Raspberry Pi beschrieben.
-
+\par Im Folgenden wird die Konfiguration des Raspberry Pi erläutert. Alle notwendigen Einstellungen sind in der Datei \texttt{code/raspi\_start} \cite{code} als Bash-Skript für die Ausführung auf dem Raspberry Pi gespeichert.
 \subsection{Einrichtung als Access Point}
 \par Für die Einrichtung des Raspberry Pi als WLAN Access Point wird das Softwarepaket \texttt{hostapd}\footnote[3]{Host Access Point Daemon} verwendet. Mit Hilfe von hostapd können normale Netzwerkkarten in Access Points umgewandelt werden. Für meine Zwecke muss das Interface \texttt{wlan0} als Access Point umgewandelt werden.
 \par Zunächst muss das Paket auf dem Raspberry Pi installiert werden.

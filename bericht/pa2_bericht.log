@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.12) (preloaded format=pdflatex 2024.1.25)  25 OCT 2024 00:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.12) (preloaded format=pdflatex 2024.1.25)  25 OCT 2024 00:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -842,28 +842,28 @@ Overfull \hbox (7.03139pt too wide) in paragraph at lines 197--198
  []
 
 [7] [8]
-Overfull \hbox (2.15416pt too wide) in paragraph at lines 252--253
+Overfull \hbox (2.15416pt too wide) in paragraph at lines 251--252
 []\OT1/cmr/bx/n/12 ignore[]broadcast[]ssid \OT1/cmr/m/n/12 --- Stan-dar-de-in-stel-lung. Igno-riert An-fra-gen, die kein vollst[]andiges
  []
 
 [9]
-Overfull \hbox (10.9258pt too wide) in paragraph at lines 309--310
+Overfull \hbox (10.9258pt too wide) in paragraph at lines 308--309
 []\OT1/cmr/m/n/12 Entsprechend den oben be-schrie-be-nen Ein-stel-lun-gen wer-den die IP-Adressen von 192.168.1.100
  []
 
 [10] [11]
-Overfull \hbox (37.59993pt too wide) in paragraph at lines 365--383
+Overfull \hbox (37.59993pt too wide) in paragraph at lines 364--382
  [][] 
  []
 
 [12] (E:\Soft\MikTex\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 )
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 413.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 412.
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 414.
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 413.
  [13] [14] [15]
-Overfull \hbox (8.56749pt too wide) in paragraph at lines 541--542
+Overfull \hbox (8.56749pt too wide) in paragraph at lines 540--541
 \OT1/cmr/m/n/12 wer-den. Im Rah-men mei-nes Pro-jekts er-folgt die Ver-bin-dung []uber ei-ne se-ri-el-le UART-Schnittstelle. 
  []
 
@@ -872,17 +872,17 @@ File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (E:\Soft\MikTex\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
 )
-Overfull \hbox (12.36606pt too wide) in paragraph at lines 543--544
+Overfull \hbox (12.36606pt too wide) in paragraph at lines 542--543
 \OT1/cmr/m/n/12 ent-spre-chen-de Ber[]ucksichtigung der je-wei-li-gen For-ma-tie-rung er-for-der-lich. Der Ar-dui-no []ubermittelt
  []
 
 [17] [18]
-Overfull \hbox (12.84521pt too wide) in paragraph at lines 627--628
+Overfull \hbox (12.84521pt too wide) in paragraph at lines 626--627
 \OT1/cmr/m/n/12 plant, die Netz-werk-kon-fi-gu-ra-ti-on so-wie MQTT-Clients auf dem ESP8266 []uber MQTT-Nachrichten
  []
 
 [19]
-Underfull \hbox (badness 3635) in paragraph at lines 657--658
+Underfull \hbox (badness 3635) in paragraph at lines 656--657
 []\OT1/cmr/m/n/12 Raspberry Pi Foun-da-ti-on, \OT1/cmr/m/it/12 Raspber-ry Pi 1 B+\OT1/cmr/m/n/12 , [][]$\OT1/cmtt/m/n/12 https : / / www . raspberrypi . com /
  []
 
@@ -904,20 +904,20 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `pa2_bericht.out' has not changed.
-(rerunfilecheck)             Checksum: B9548B05E42DCCBBC3CD4E8F7FB864C9;4201.
+(rerunfilecheck)             Checksum: B0EFF6C2F317D21422E8C59243AF18A1;4211.
  ) 
 Here is how much of TeX's memory you used:
  36020 strings out of 474486
- 762043 string characters out of 5757825
+ 762053 string characters out of 5757825
  2108542 words of memory out of 5000000
  57555 multiletter control sequences out of 15000+600000
  564712 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  98i,14n,101p,1621b,2110s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\baida\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmbx12.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmitt10.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmr10.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmr12.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmr7.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmr8.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmti12.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmtt10.pfb><E:/Soft/MikTex/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on pa2_bericht.pdf (22 pages, 420207 bytes).
+Output written on pa2_bericht.pdf (22 pages, 420647 bytes).
 PDF statistics:
- 606 PDF objects out of 1000 (max. 8388607)
+ 607 PDF objects out of 1000 (max. 8388607)
  250 named destinations out of 1000 (max. 500000)
  279 words of extra memory for PDF output out of 10000 (max. 10000000)
 
